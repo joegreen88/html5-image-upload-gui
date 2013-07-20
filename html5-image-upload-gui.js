@@ -318,7 +318,7 @@ window.HIUG = {
                 return;
             }
             window.HIUG.isReadingZip = true;
-            var entry = window.HIUG.unzipper.readEntry();
+            var entry = window.HIUG.unzipper.getEntry();
             if (window.HIUG.stopLoading || false === entry) {
                 clearInterval(window.HIUG.zipIntervalID);
                 window.HIUG.zipIntervalID = 0;
