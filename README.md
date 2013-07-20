@@ -3,6 +3,10 @@ html5-image-upload-gui
 
 This is a simple and effective GUI for a generic batch image uploader using HTML5 & Javascript with Twitter Bootstrap.
 
+## Demo
+
+[http://demo.smrtr.co.uk/html5-image-upload-gui/](http://demo.smrtr.co.uk/html5-image-upload-gui/)
+
 ## Credits
 
  - Twitter for [Twitter Bootstrap](https://github.com/twitter/bootstrap).
