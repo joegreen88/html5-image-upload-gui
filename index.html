@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <title>html5-image-upload-gui</title>
+    <link type="text/css" rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="jquerymodal/jquery.modal.css"/>
+    <link type="text/css" rel="stylesheet/less" href="html5-image-upload-gui.less"/>
+    <script type="text/javascript" src="js-unzip.js"></script>
+    <script type="text/javascript" src="jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="handlebars.js"></script>
+    <script type="text/javascript" src="html5-image-upload-gui.js"></script>
+    <script type="text/javascript" src="less-1.4.1.min.js"></script>
+    <script type="text/javascript" src="jquerymodal/jquery.modal.min.js"></script>
+</head>
+<body>
+    <div id="mass_image_upload">
+        <h1>html5-image-upload-gui <small>Select some images to add to the queue</small></h1>
+        <div class="upload_button pull-left">
+            <div class="upload_input">
+                <input type="file" id="upload_input" accept="image/jpeg,image/gif,image/png,application/zip" multiple>
+            </div>
+            <div class="upload_loading_image">
+                <img src="loading.gif">
+                <a class="label label-important" id="stop_loading">STOP LOADING FILES</a>
+            </div>
+            <div class="upload_progress">
+                <div class="progress progress-striped active">
+                    <div class="bar bar-success" style="width: 0%">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+        <div class="control_bar pull-right">
+            <button class="btn btn-primary tag-selected">
+                Tag Selected
+            </button>
+            <div class="btn-group">
+                <button class="btn select-all">
+                    <i class="icon-ok"></i> Select All
+                </button>
+                <button class="btn select-untagged">
+                    <i class="icon-magnet"></i> Select Untagged
+                </button>
+                <button class="btn select-none">
+                    <i class="icon-remove"></i> Deselect All
+                </button>
+            </div>
+        </div>
+        <div class="list_body_outer">
+            <div class="list_body">
+                <script id="tpl-item" type="text/x-handlebars-template">
+                    <div class="item" id="miu-item_{{id}}" data-itemid="{{id}}">
+                        <img src="{{{source}}}" class="img-polaroid" title="{{title}}" width="96px" />
+                        <div class="btn-group">
+                        <button class="btn btn-small selection" data-itemid="{{id}}" title="toggle selected">
+                            <i class="icon-ok"></i>
+                        </button>
+                        <button class="btn btn-small expand" data-itemid="{{id}}" title="tagging - edit fields">
+                            <i class="icon-tag"></i>
+                        </button>
+                        <button class="btn btn-small remove" data-itemid="{{id}}" title="remove from queue">
+                            <i class="icon-trash"></i>
+                        </button>
+                        </div>
+                    </div>
+                </script>
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+        <div style="clear: both;"></div>
+        <div class="control_bar">
+            <div class="pull-left">
+                <button class="btn btn-success btn-large" id="upload_CTA">
+                    Upload
+                </button>
+            </div>
+            <div class="pull-right">
+                <button class="btn btn-primary tag-selected">
+                    Tag Selected
+                </button>
+                <div class="btn-group">
+                    <button class="btn select-all">
+                        <i class="icon-ok"></i> Select All
+                    </button>
+                    <button class="btn select-untagged">
+                        <i class="icon-magnet"></i> Select Untagged
+                    </button>
+                    <button class="btn select-none">
+                        <i class="icon-remove"></i> Deselect All
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="messages"></div>
+        <script id="tpl-message" type="text/x-handlebars-template">
+            <div class="alert fade in {{#if msgClass}}alert-{{msgClass}}{{/if}}">
+                {{{message}}}
+            </div>
+        </script>
+        <script id="tpl-tagging" type="text/x-handlebars-template">
+            <form onsubmit="return false;" class="form-horizontal">
+                <fieldset>
+                <legend>Tag {{imageNoun}}</legend>
+                <div class="control-group">
+                    <label for="category_field" class="control-label">Category</label>
+                    <div class="controls">
+                    <select name="category_field" id="category_field">
+                        <option value="" disabled{{#if selectDefault}} selected{{/if}}>Please select...</option>
+                        {{#each categories}}
+                        <option value="{{this.val}}"{{#if this.selected}} selected{{/if}}>{{this.name}}</option>
+                        {{/each}}
+                    </select>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="description_field" class="control-label">Description</label>
+                    <div class="controls">
+                    <textarea name="description_field" id="description_field">{{description}}</textarea>
+                    </div>
+                </div>
+                <button class="btn btn-large btn-primary pull-right" id="confirm-fields">
+                    Confirm Fields
+                </button>
+                </fieldset>
+            </form>
+        </script>
+        <div class="modal" id="tagging-dialogue"></div>
+    </div>
+</body>
+</html>
